@@ -1,0 +1,3 @@
+[submodule "CustomExtensions"]
+	path = CustomExtensions
+	url = https://github.com/DonTuel/CustomExtensions

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{872BDD33-4F20-49E4-BDA1-7153BF3F7AC8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Hercules_DASD_Utility</RootNamespace>
+    <AssemblyName>Hercules DASD Utility</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\DASD_Utility.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DASD_About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DASD_About.Designer.cs">
+      <DependentUpon>DASD_About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DASD_MemberList_Unload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DASD_MemberList_Unload.Designer.cs">
+      <DependentUpon>DASD_MemberList_Unload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DASD_Routines.cs" />
+    <Compile Include="DASD_Utilities.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DASD_Utilities.Designer.cs">
+      <DependentUpon>DASD_Utilities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DASD_Volume.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="HexControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HexControl.Designer.cs">
+      <DependentUpon>HexControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewColumnSorter.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="XMLConfiguration.cs" />
+    <EmbeddedResource Include="DASD_About.resx">
+      <DependentUpon>DASD_About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DASD_MemberList_Unload.resx">
+      <DependentUpon>DASD_MemberList_Unload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DASD_Utilities.resx">
+      <DependentUpon>DASD_Utilities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HexControl.resx">
+      <DependentUpon>HexControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\check_empty.bmp" />
+    <Content Include="Images\check_partial.bmp" />
+    <Content Include="Images\check_select.bmp" />
+    <Content Include="Images\DASD_Utility.ico" />
+    <Content Include="Images\DASD_Utility.png" />
+    <Content Include="Images\Delete.png" />
+    <Content Include="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CustomExtensions\CustomExtensions.csproj">
+      <Project>{f2247cba-7958-468b-9da2-51c89c8dd9ee}</Project>
+      <Name>CustomExtensions</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ExpTreeLib">
+      <Version>3.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="zlib.net">
+      <Version>1.0.4</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
