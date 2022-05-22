@@ -467,25 +467,25 @@
             this.mnuFileOpen.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFILEOpenHerculesConfig});
             this.mnuFileOpen.Name = "mnuFileOpen";
-            this.mnuFileOpen.Size = new System.Drawing.Size(103, 22);
+            this.mnuFileOpen.Size = new System.Drawing.Size(180, 22);
             this.mnuFileOpen.Text = "Open";
             // 
             // mnuFILEOpenHerculesConfig
             // 
             this.mnuFILEOpenHerculesConfig.Name = "mnuFILEOpenHerculesConfig";
-            this.mnuFILEOpenHerculesConfig.Size = new System.Drawing.Size(171, 22);
+            this.mnuFILEOpenHerculesConfig.Size = new System.Drawing.Size(180, 22);
             this.mnuFILEOpenHerculesConfig.Text = "Hercules Config ...";
             this.mnuFILEOpenHerculesConfig.Click += new System.EventHandler(this.mnuFILEOpenHerculesConfig_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(100, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuFileExit
             // 
             this.mnuFileExit.Name = "mnuFileExit";
-            this.mnuFileExit.Size = new System.Drawing.Size(103, 22);
+            this.mnuFileExit.Size = new System.Drawing.Size(180, 22);
             this.mnuFileExit.Text = "Exit";
             this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
             // 

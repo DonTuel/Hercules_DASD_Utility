@@ -285,6 +285,7 @@ namespace Hercules_DASD_Utility
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
                 lblConfigName.Text = dlg.FileName;
+                Clear_Tabs();
                 DASD_Routines.Open_Config(dlg.FileName, lvVolume);
             }
         }
@@ -622,71 +623,7 @@ namespace Hercules_DASD_Utility
                 {
                     this.Cursor = Cursors.WaitCursor;
 
-                    TabPage tabPage = new TabPage();
-                    RichTextBox textBox = new RichTextBox();
-                    TableLayoutPanel layoutPanel = new TableLayoutPanel();
-                    Label label = new Label();
-                    Button button = new Button();
-
-                    tabPage.Name = "tp_" + memEntry.member + tcDSNMemberList.TabPages.Count.ToString();
-                    tabPage.Padding = new Padding(3);
-                    tabPage.UseVisualStyleBackColor = true;
-                    tcDSNMemberList.TabPages.Add(tabPage);
-                    tabPage.Controls.Add(layoutPanel);
-
-                    layoutPanel.ColumnCount = 2;
-                    layoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 24f));
-                    layoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
-                    layoutPanel.Dock = DockStyle.Fill;
-                    layoutPanel.Location = new Point(3, 3);
-                    layoutPanel.Name = "lp_" + memEntry.member + tcDSNMemberList.TabPages.Count.ToString();
-                    layoutPanel.RowCount = 2;
-                    layoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 24f));
-                    layoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
-                    layoutPanel.Size = new Size(1172, 459);
-                    layoutPanel.TabIndex = 1;
-                    layoutPanel.Controls.Add(textBox, 0, 1);
-                    layoutPanel.Controls.Add(button, 0, 0);
-                    layoutPanel.Controls.Add(label, 1, 0);
-                    layoutPanel.SetColumnSpan(textBox, 2);
-                    layoutPanel.SetColumnSpan(button, 1);
-                    layoutPanel.SetColumnSpan(label, 1);
-
-                    button.Name = "btn_" + memEntry.member + tcDSNMemberList.TabPages.Count.ToString();
-                    button.Image = imageList1.Images[0];
-                    button.Text = "";
-                    button.Width = 16;
-                    button.Height = 16;
-                    button.Click += new EventHandler(button_Click);
-                    button.Dock = DockStyle.Fill;
-                    button.TextAlign = ContentAlignment.TopCenter;
-                    button.Tag = tabPage;
-
-                    textBox.ContextMenuStrip = this.cmsDSNData;
-                    textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-                    textBox.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    textBox.Location = new System.Drawing.Point(3, 23);
-                    textBox.Name = "txt_" + memEntry.member + tcDSNMemberList.TabPages.Count.ToString();
-                    textBox.Size = new System.Drawing.Size(1166, 433);
-                    textBox.TabIndex = 1;
-                    textBox.Text = "";
-                    textBox.WordWrap = false;
-
-                    label.AutoSize = true;
-                    label.Dock = DockStyle.Fill;
-                    label.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                    label.Location = new System.Drawing.Point(3, 0);
-                    label.Name = "label" + tcDSNMemberList.TabPages.Count.ToString();
-                    label.Size = new System.Drawing.Size(1166, 20);
-                    label.TabIndex = 2;
-                    label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-
-                    tabPage.Text = memEntry.member;
-                    label.Text = memEntry.member;
-
-                    tabPage.Tag = memEntry.member;
-                    label.Tag = memEntry.member;
-                    textBox.Tag = memEntry.member;
+                    RichTextBox textBox = NewTabPageTextBox(memEntry);
 
                     String retStr = DASD_Routines.Get_Member_Contents(memEntry);
 
@@ -706,6 +643,77 @@ namespace Hercules_DASD_Utility
             }
         }
 
+        private RichTextBox NewTabPageTextBox(MemberEntry memEntry)
+        {
+            TabPage tabPage = new TabPage();
+            RichTextBox textBox = new RichTextBox();
+            TableLayoutPanel layoutPanel = new TableLayoutPanel();
+            Label label = new Label();
+            Button button = new Button();
+
+            tabPage.Name = "tp_" + memEntry.member + tcDSNMemberList.TabPages.Count.ToString();
+            tabPage.Padding = new Padding(3);
+            tabPage.UseVisualStyleBackColor = true;
+            tcDSNMemberList.TabPages.Add(tabPage);
+            tabPage.Controls.Add(layoutPanel);
+
+            layoutPanel.ColumnCount = 2;
+            layoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 24f));
+            layoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100f));
+            layoutPanel.Dock = DockStyle.Fill;
+            layoutPanel.Location = new Point(3, 3);
+            layoutPanel.Name = "lp_" + memEntry.member + tcDSNMemberList.TabPages.Count.ToString();
+            layoutPanel.RowCount = 2;
+            layoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 24f));
+            layoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f));
+            layoutPanel.Size = new Size(1172, 459);
+            layoutPanel.TabIndex = 1;
+            layoutPanel.Controls.Add(textBox, 0, 1);
+            layoutPanel.Controls.Add(button, 0, 0);
+            layoutPanel.Controls.Add(label, 1, 0);
+            layoutPanel.SetColumnSpan(textBox, 2);
+            layoutPanel.SetColumnSpan(button, 1);
+            layoutPanel.SetColumnSpan(label, 1);
+
+            button.Name = "btn_" + memEntry.member + tcDSNMemberList.TabPages.Count.ToString();
+            button.Image = imageList1.Images[0];
+            button.Text = "";
+            button.Width = 16;
+            button.Height = 16;
+            button.Click += new EventHandler(button_Click);
+            button.Dock = DockStyle.Fill;
+            button.TextAlign = ContentAlignment.TopCenter;
+            button.Tag = tabPage;
+
+            textBox.ContextMenuStrip = this.cmsDSNData;
+            textBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            textBox.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            textBox.Location = new System.Drawing.Point(3, 23);
+            textBox.Name = "txt_" + memEntry.member + tcDSNMemberList.TabPages.Count.ToString();
+            textBox.Size = new System.Drawing.Size(1166, 433);
+            textBox.TabIndex = 1;
+            textBox.Text = "";
+            textBox.WordWrap = false;
+
+            label.AutoSize = true;
+            label.Dock = DockStyle.Fill;
+            label.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label.Location = new System.Drawing.Point(3, 0);
+            label.Name = "label" + tcDSNMemberList.TabPages.Count.ToString();
+            label.Size = new System.Drawing.Size(1166, 20);
+            label.TabIndex = 2;
+            label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+
+            tabPage.Text = memEntry.member;
+            label.Text = memEntry.member;
+
+            tabPage.Tag = memEntry.member;
+            label.Tag = memEntry.member;
+            textBox.Tag = memEntry.member;
+
+            return textBox;
+        }
+
         private void Clear_Tabs()
         {
             textDASDInfo.Text = "";
@@ -721,6 +729,19 @@ namespace Hercules_DASD_Utility
             tpVolume.Text = "Volume";
             tpVTOC.Text = "VTOC";
             tpCKDFBA.Text = "CKD/FBA";
+
+            tpDSNMember.Text = "...";
+            tpDSNList.Text = "...";
+
+            if (tcDSNMemberList.TabCount > 1)
+            {
+                for (int i = tcDSNMemberList.TabCount; i > 1; i--)
+                {
+                    TabPage tp = tcDSNMemberList.TabPages[1];
+                    tcDSNMemberList.TabPages.Remove(tcDSNMemberList.TabPages[1]);
+                    tp.Dispose();
+                }
+            }
         }
 
         private void mnuViewLargeIcons_Click(object sender, EventArgs e)

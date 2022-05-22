@@ -194,7 +194,7 @@ namespace Hercules_DASD_Utility
 
         private void btnUnloadInto_Click(object sender, EventArgs e)
         {
-            DASD_Routines.SelectUnloadFolder();
+            DASD_Routines.SelectUnloadFolder(Global.folder);
             txtUnloadIntoFolder.Text = Global.folder;
         }
     }

@@ -82,6 +82,11 @@ namespace Hercules_DASD_Utility
         [XmlIgnore]
         public virtual bool IsDirty { get; set; }
 
+        public Window()
+        {
+            main = new Main();
+        }
+
     }
 
     [XmlRoot(ElementName = "Configuration")]
@@ -115,13 +120,13 @@ namespace Hercules_DASD_Utility
             }
         }
 
-        public static XMLConfiguration Load(string path)
+        public static XMLConfiguration Load(string namepath)
         {
             XMLConfiguration cfg;
             var serializer = new XmlSerializer(typeof(XMLConfiguration));
-            if (File.Exists(path))
+            if (File.Exists(namepath))
             {
-                using (var stream = new FileStream(path, FileMode.Open))
+                using (var stream = new FileStream(namepath, FileMode.Open))
                 {
                     cfg = serializer.Deserialize(stream) as XMLConfiguration;
                     cfg.IsDirty = false;
@@ -164,11 +169,20 @@ namespace Hercules_DASD_Utility
             return sFileName;
         }
 
-        public void Save(string path)
+        public void Save(string namepath)
         {
+            char[] pSep = { '/', '\\' };
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
             var serializer = new XmlSerializer(typeof(XMLConfiguration));
-            using (var stream = new FileStream(path, FileMode.Create))
+            if (namepath.IndexOfAny(pSep) >= 0)
+            {
+                string path = namepath.Substring(0, namepath.IndexOfAny(pSep));
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+            }
+            using (var stream = new FileStream(namepath, FileMode.Create))
             {
                 serializer.Serialize(stream, this, ns);
             }

@@ -349,7 +349,7 @@ namespace Hercules_DASD_Utility
 
             try
             {
-                dev.fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                dev.fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             }
             catch (Exception ex)
             {
@@ -980,6 +980,9 @@ namespace Hercules_DASD_Utility
             Int32 fnd = 0;
             Int32 numExt = 0;
 
+            Boolean objDeck = false;
+            Int32 recsProcessed = 0;
+
             foreach (DSXTENT dse in dEntry.dsextents)
             {
                 dse.Debug(nameof(dse));
@@ -1060,6 +1063,20 @@ namespace Hercules_DASD_Utility
                 Byte[] buf = new Byte[dlen];
                 Array.Copy(data, 0, buf, 0, dlen);
 
+                if (!objDeck && recsProcessed == 0)
+                {
+                    recsProcessed++;
+                    // check if ESD record
+                    if (buf[0] == 0x02 && buf[1] == 0xc5 && buf[2] == 0xe2 && buf[3] == 0xc4 && buf[4] == 0x40)
+                    {
+                        objDeck = true;
+                        if (retStr == "")
+                        {
+                            retStr = "{\\rtf1 ";
+                        }
+                    }
+                }
+
                 if ((recFmt == "FB") || (recFmt == "F"))
                 {
                     Int32 numLrecl;
@@ -1067,12 +1084,6 @@ namespace Hercules_DASD_Utility
 
                     if (recFmt == "FB")
                     {
-                        //if (mnuViewRecordLengthValue.Text.IsNumeric())
-                        //{
-                        //    lrecl = Convert.ToInt32(mnuViewRecordLengthValue.Text);
-                        //}
-                        //else
-                        //{
                         for (int i = 0; i < lrecLs.Length; i++)
                         {
                             if ((dlen % lrecLs[i]) == 0)
@@ -1081,7 +1092,6 @@ namespace Hercules_DASD_Utility
                                 break;
                             }
                         }
-                        //}
                     }
 
                     if (lrecl == -1) { lrecl = dlen; }
@@ -1090,17 +1100,17 @@ namespace Hercules_DASD_Utility
 
                     for (int i = 0; i < numLrecl; i++)
                     {
-                        if (!Global.HexDumpOnly)
-                        {
-                            Byte[] bufAscii = new Byte[lrecl];
-                            DASD_Routines.EBCDIC_to_asciiz(ref bufAscii, lrecl, buf, i * lrecl, lrecl);
-                            retStr += new string(' ', 1).ByteArrayToString(bufAscii) + _NewLine;
-                        }
-                        else
+                        if (Global.HexDumpOnly || objDeck)
                         {
                             Byte[] dumpBuf = new Byte[lrecl];
                             Array.Copy(buf, i * lrecl, dumpBuf, 0, lrecl);
                             retStr += Hex_Dump_EBCDIC(dumpBuf, lrecl, 32);
+                        }
+                        else
+                        {
+                            Byte[] bufAscii = new Byte[lrecl];
+                            DASD_Routines.EBCDIC_to_asciiz(ref bufAscii, lrecl, buf, i * lrecl, lrecl);
+                            retStr += new string(' ', 1).ByteArrayToString(bufAscii) + _NewLine;
                         }
                     }
                 }
@@ -2369,9 +2379,14 @@ namespace Hercules_DASD_Utility
             return retStr;
         }
 
-        public static void SelectUnloadFolder()
+        public static void SelectUnloadFolder(String selectedFolder = null)
         {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
+            dlg.RootFolder = Environment.SpecialFolder.MyComputer;
+            if (selectedFolder != null && selectedFolder != "")
+            {
+                dlg.SelectedPath = selectedFolder;
+            }
             DialogResult dr = dlg.ShowDialog();
             if (dr == DialogResult.Cancel) { return; }
             Global.folder = dlg.SelectedPath;
