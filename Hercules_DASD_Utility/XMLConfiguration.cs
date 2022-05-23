@@ -142,7 +142,6 @@ namespace Hercules_DASD_Utility
             cfg.window.main.VerticalSplit1Location = 460;
             cfg.window.main.HorizontalSplit1Location = 460;
             cfg.window.main.HorizontalSplit2Location = 460;
-            cfg.IsDirty = false;
             return cfg;
         }
 
@@ -174,9 +173,9 @@ namespace Hercules_DASD_Utility
             char[] pSep = { '/', '\\' };
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
             var serializer = new XmlSerializer(typeof(XMLConfiguration));
-            if (namepath.IndexOfAny(pSep) >= 0)
+            if (namepath.LastIndexOfAny(pSep) >= 0)
             {
-                string path = namepath.Substring(0, namepath.IndexOfAny(pSep));
+                string path = namepath.Substring(0, namepath.LastIndexOfAny(pSep));
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
